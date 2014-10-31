@@ -19,11 +19,6 @@
 
 (scroll-bar-mode -1)
 
-(prelude-require-packages '(solarized-theme cyberpunk-theme))
-;; (load-theme 'solarized-dark t)
-(load-theme 'deeper-blue t)
-;; (load-theme 'cyberpunk t)
-
 ;; font
 ;; (set-face-attribute 'default nil :height 140) ;; 14pt
 ;; (set-default-font "Anonymous Pro")
