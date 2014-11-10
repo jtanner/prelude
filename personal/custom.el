@@ -55,7 +55,10 @@
      (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3")
  '(visible-bell t)
- '(whitespace-line-column 120))
+ '(whitespace-line-column 120)
+ '(whitespace-style
+   (quote
+    (face tabs trailing space-before-tab space-after-tab))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
