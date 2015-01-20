@@ -115,10 +115,7 @@
 ;;
 ;; Display ido results vertically, rather than horizontally
 ;;
-(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
-(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
-;; (require 'prelude-programming)
-;; (prelude-require-package 'ido-vertical-mode)
-;; (ido-vertical-mode 1)
-;; (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+(prelude-require-package 'ido-vertical-mode)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+;(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
