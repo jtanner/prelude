@@ -1,0 +1,5 @@
+(setq prelude-guru nil)
+(global-flycheck-mode -1)
+(setq prelude-flyspell nil)
+(setq prelude-auto-save nil)
+(define-key prelude-mode-map (kbd "s-g") nil)
