@@ -10,14 +10,19 @@
         scheme-mode
         sql-mode
         R-mode
+        org-mode
         ruby-mode
         html-mode
         yaml-mode
         sass-mode
         js2-mode
+        json-mode
         coffee-mode
         espresso-mode
         scala-mode
-        feature-mode))
+        scss-mode
+        makefile-mode
+        feature-mode
+        web-mode))
 (dolist (mode linum-modes)
   (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-linum-mode))
