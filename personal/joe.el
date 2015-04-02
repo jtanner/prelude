@@ -2,13 +2,15 @@
 ;; Require packages that don't need
 ;; extra configuration.
 ;; ----------------------------------------
-(prelude-require-packages '(ag))
+(prelude-require-packages '(ag help-fns+))
+(require 'help-fns+)
 
 
 ;; ----------------------------------------
 ;; Start with org todo
 ;; ----------------------------------------
-;; (setq initial-buffer-choice "~/org/work.org")
+(setq initial-buffer-choice "~/Dropbox/org/spingo-work-log.org")
+;; (org-agenda nil "a")
 
 
 ;; ----------------------------------------
@@ -20,8 +22,9 @@
 (scroll-bar-mode -1)
 
 ;; font
-;; (set-face-attribute 'default nil :height 140) ;; 14pt
-;; (set-default-font "Anonymous Pro")
+(set-face-attribute 'default nil :height 150) ;; e.g. 140 == 14pt
+(set-default-font "Anonymous Pro")
+;; (set-default-font "Droid Sans Mono")
 
 ;; set default screen size
 (defun set-frame-size-according-to-resolution()
@@ -31,13 +34,11 @@
         ;; when on a larger display than my 15" screen
         (if (> (x-display-pixel-width) 2880)
             (setq default-frame-alist
-                  '((left . 80) (width . 223) (height . 63)))
+                  '((left . 0) (width . 238) (height . 68)))
           (setq default-frame-alist
-                '((left . 0) (width . 200) (height . 56))))
+                '((left . 0) (width . 178) (height . 56))))
         )))
 (set-frame-size-according-to-resolution)
-
-(setq prelude-flyspell nil)
 
 
 
@@ -52,14 +53,35 @@
 ;; (global-set-key (kbd "s-}") 'previous-buffer)
 
 ;; commenting like other apps
-(eval-after-load "prelude-mode"
-  '(define-key prelude-mode-map (kbd "s-/") nil))
-(global-set-key (kbd "s-/") 'comment-dwim)
+(global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
 
-;; (eval-after-load "evil-mode"
-;;   '(define-key evil-insert-state-map "RET" nil))
-;; (define-key evil-insert-state-map "RET" 'evil-ret-and-indent)
+;; opposite of s-'
+(global-set-key (kbd "s-\"") 'previous-multiframe-window)
 
+(global-set-key (kbd "s-w") 'delete-window)
+(global-set-key (kbd "s-n") nil)
+
+(global-set-key [(super return)] 'prelude-smart-open-line)
+
+;; unset windmove bindings so default S-right will select
+(global-set-key [(shift right)] nil)
+(global-set-key [(shift left)] nil)
+
+(global-set-key (kbd "s-<right>") 'move-end-of-line)
+(global-set-key (kbd "s-<left>") 'move-beginning-of-line)
+
+;; quit with s-q s-q
+(define-prefix-command 'global-map)
+(global-set-key (kbd "s-q") 'global-map)
+(global-set-key (kbd "s-q s-q") 'save-buffers-kill-emacs)
+
+(define-key prelude-mode-map (kbd "s-t") 'projectile-find-file)
+
+(global-set-key (kbd "s-=") 'text-scale-increase)
+(global-set-key (kbd "s--") 'text-scale-decrease)
+(global-set-key (kbd "s-0") (lambda () (interactive) (text-scale-set 0)))
+
+(global-set-key (kbd "s-y") 'bury-buffer)
 
 
 
@@ -84,6 +106,8 @@
   (interactive)
   (save-some-buffers t))
 (global-set-key (kbd "M-s-ß") 'force-save-all) ;; option-command-s
+
+
 
 ;;
 ;; Scroller: scrolling without moving the cursor

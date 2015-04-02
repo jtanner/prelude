@@ -2,4 +2,5 @@
 
 (sml/setup)
 (sml/apply-theme 'dark)
-(add-to-list 'sml/replacer-regexp-list '("~/spingo/" ":SG:") t)
+
+(customize-set-variable sml/use-projectile-p (quote before-prefixes))
