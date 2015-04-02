@@ -1,3 +1,25 @@
+(prelude-require-packages '(evil-leader evil-nerd-commenter))
+
+(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+
+;; evil leader
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+  "<SPC>" 'ace-jump-mode
+  "p" 'projectile-command-map
+  "b" 'projectile-switch-to-buffer
+  ;; "f" 'projectile-find-file
+  ;; "g" 'projectile-vc
+  ;; "l" 'ace-jump-line-mode
+  ;; "o" 'org-capture
+  "s" 'ag-project-regexp
+  "k" 'kill-buffer
+  "y" 'bury-buffer)
+
+(evil-leader/set-key-for-mode 'scala-mode
+  "e" 'ensime)
+
 ;; remove evil bindings
 (define-key evil-insert-state-map "\C-y" nil)
 (define-key evil-insert-state-map "\C-e" nil)
@@ -7,17 +29,31 @@
 (define-key evil-insert-state-map "\C-d" nil)
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map "\C-a" nil)
+(define-key evil-normal-state-map (kbd "TAB") nil) ;; only use tab for indentation!
 (define-key evil-motion-state-map "\C-i" nil)
 (define-key evil-motion-state-map "\C-e" nil)
 (define-key evil-motion-state-map "\C-y" nil)
 
-(define-key evil-motion-state-map "j" 'evil-next-visual-line) ; gj
-(define-key evil-motion-state-map "k" 'evil-previous-visual-line) ; gk
+(define-key evil-normal-state-map "\C-i" 'evil-jump-forward)
+;; (define-key evil-normal-state-map "\C-u" 'evil-scroll-up)
+;; (define-key evil-insert-state-map [(return)] 'evil-ret-and-indent) ;; messes with coffee mode indent
+
+;; warning: these cause "dj" (delete this and the next line) to not work
+;; (define-key evil-motion-state-map "j" 'evil-next-visual-line) ; gj
+;; (define-key evil-motion-state-map "k" 'evil-previous-visual-line) ; gk
 
 ;; (global-set-key (kbd "C-]") 'evil-find-char)
 ;; (global-set-key (kbd "C-M-]") 'evil-find-char-backward)
 
-;; (add-to-list 'evil-insert-state-modes 'magit-log-edit-mode)
+;; don't start with evil for these modes
+(mapc (lambda (e) (add-to-list 'evil-emacs-state-modes e))
+      '(ag-mode
+        ensime-popup-buffer-mode
+        ensime-inspector-mode
+        git-commit-mode
+        neotree-mode))
+(mapc (lambda (e) (add-to-list 'evil-insert-state-modes e))
+      '(git-commit-mode))
 
 
 ;; Alternative to ESC
@@ -66,3 +102,13 @@
               (x-select-text (buffer-substring-no-properties
                               evil-visual-beginning
                               evil-visual-end))))))))
+
+;;; This is nice, but also annoying
+;; ;; Make evil respect _ and - when using for example `viw'
+;; (defun forward-evil-word (&optional count)
+;;   ""
+;;   (let ((init-point (point)))
+;;     (forward-symbol (or count 1))
+
+;;     (if (= (point) init-point)
+;;         count 0)))
