@@ -1,5 +1,3 @@
-(require 'prelude-programming)
-
 (prelude-require-packages '(smart-mode-line))
 
 (sml/setup)
